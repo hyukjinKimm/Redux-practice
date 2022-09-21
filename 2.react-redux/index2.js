@@ -16,15 +16,22 @@ const firstMiddleware = (store) => (dispatch) => (action) => {
   // 기능추가
   dispatch(action)
   // 기능추가
-  console.log('액션 끝')
+  console.log('액션 끝', action)
+}
+
+const thunkMiddelware = (store) => (dispatch) => (action) => {
+  if (typeof action === 'function'){ // 비동기
+    return action(store.dispatch, store.getState)
+  }
+  return dispatch(action)
 }
 const enhancer = compose(
-  applyMiddleware(firstMiddleware)
+  applyMiddleware(
+    firstMiddleware,
+    thunkMiddelware,
+  )
 )
 const store = createStore(reducer, initialState, enhancer);
-store.subscribe(() => {
-  console.log('changed')
-})
 
 console.log(store.getState());
 store.dispatch(logIn({
@@ -33,7 +40,7 @@ store.dispatch(logIn({
   admin: true
 }))
 console.log('2nd ,', store.getState())
-store.dispatch(addPost({
+/* store.dispatch(addPost({
   userId: 1,
   id: 1,
   content: '안녕하세요 리덕스씨!'
@@ -48,4 +55,4 @@ console.log('4nd ,', store.getState())
 store.dispatch(logOut({
 
 }))
-console.log('5nd ,', store.getState())
+console.log('5nd ,', store.getState()) */
