@@ -1,4 +1,4 @@
-const { createStore } = require('redux')
+const { createStore, compose, applyMiddleware } = require('redux')
 const reducer = require('./reducers')
 
 const { logIn, logOut} = require('./actions/user')
@@ -11,9 +11,17 @@ const initialState = {
     posts: [],
 }
 
-
-
-const store = createStore(reducer, initialState);
+const firstMiddleware = (store) => (dispatch) => (action) => {
+  console.log('액션로깅', action)
+  // 기능추가
+  dispatch(action)
+  // 기능추가
+  console.log('액션 끝')
+}
+const enhancer = compose(
+  applyMiddleware(firstMiddleware)
+)
+const store = createStore(reducer, initialState, enhancer);
 store.subscribe(() => {
   console.log('changed')
 })
