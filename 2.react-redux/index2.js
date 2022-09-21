@@ -4,7 +4,10 @@ const reducer = require('./reducers')
 const { logIn, logOut} = require('./actions/user')
 const { addPost } = require('./actions/post')
 const initialState = {
-    user: null,
+    user: {
+      isLoggedIn: true,
+      data: null
+    },
     posts: [],
 }
 
