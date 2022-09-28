@@ -1,0 +1,1 @@
+store.getState() : 현재 state 목록을 가져옴

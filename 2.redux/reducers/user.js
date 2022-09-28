@@ -16,6 +16,7 @@ const userReducer = (preState=initialState, action) => {
               data: null,
           }
       default:
+          console.log('hi', action)
           return preState
     }
 }
