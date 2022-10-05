@@ -22,7 +22,7 @@ const App = memo(() => {
       ? <div>로그인 중</div> 
       : user.data
       ? <div>{user.data.nickname}</div> 
-      : '로그인해주세요'}
+    : '로그인해주세요  '}
       { !user.data 
       ? <button onClick={onClickBtn}>lonin</button>
       : <button onClick={onLogout}>logout</button>
